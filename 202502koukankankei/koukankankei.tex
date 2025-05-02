@@ -1,0 +1,375 @@
+\documentclass{article}
+% \setlength{\textwidth}{46zw}
+% \setlength{\textheight}{78zh}
+%\setlength{\textwidth}{20zw}
+%\setlength{\textheight}{30zh}
+\addtolength{\hoffset}{-12.77pt}
+\addtolength{\headsep}{-13pt}
+\addtolength{\headheight}{-20pt}
+\addtolength{\voffset}{-29.77pt}
+\usepackage{luatexja}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{mathrsfs}
+\usepackage{amsmath, amssymb}
+\usepackage{type1cm}
+\usepackage[dvipdfmx]{color}
+\usepackage{here}
+\usepackage{physics}
+\usepackage{color}
+\usepackage{simpler-wick}
+
+
+\def\theequation{\arabic{equation}}
+\renewcommand{\baselinestretch}{1}
+\title{交換関係確かめ定式化}
+\author{先進理工学研究科電気情報生命工学専攻\\学籍番号5324E085 \\藤原大地\\}
+\date{2024年2月3日} 
+\begin{document}
+\maketitle
+
+鉛直方向にRashba外場を印加した系で，スピン多重度が
+
+\section{今回使用した関係式}
+問題に取り掛かる前に，交換関係について復習する．
+
+スピン演算子どうしの交換関係は引数が等しい場合，次の形で書き表される．
+\begin{equation}
+\begin{split}
+\label{}
+[\hat{S_i},\hat{S_j}]=i\hbar \epsilon_{ijk} \hat{S_k}
+\end{split}
+\end{equation}
+ただし，$\epsilon_{ijk}$は$Levi-Civita記号$と呼ばれる三次元の完全反対称テンソルであり，次のように符号を返す．
+\begin{equation}  \label{eq: cases f}
+    \epsilon_{ijk}=
+        \begin{cases}
+            +1   &   偶置換  \\
+            -1        &  奇置換    \\
+            0        &   i,j,kのうちふたつ以上が同じとき    \\
+        \end{cases}
+    \end{equation}
+引数がことなる場合，スピン演算子どうしの交換関係は0である．
+また，スピン演算子と運動量演算子の交換関係は引数が異なるために0である．
+
+
+\section{$\hat{\mathcal{H}}$とスピン二乗演算子の交換関係}
+ここから，本題に入る
+本来は$[\hat{\mathcal{H}}, \hat{S}^2]$のように全ハミルトニアンに対して交換関係を考えるべきだが、$\hat{\mathcal{H}}=\hat{\mathcal{H}}_0+\hat{\mathcal{H}}_r$のうち$\hat{\mathcal{H}}_0$にはスピンの演算子が含まれていないので、
+\begin{align}
+[\hat{\mathcal{H}}, \hat{S}^2]
+    %
+    &=[\hat{\mathcal{H}}_0+\hat{\mathcal{H}}_r, \hat{S}^2]
+    \nonumber\\
+    %
+    &=[\hat{\mathcal{H}}_0, \hat{S}^2]+[\hat{\mathcal{H}}_r, \hat{S}^2]
+    \nonumber\\
+    %
+    &=0+[\hat{\mathcal{H}}_r, \hat{S}^2]
+    \nonumber\\
+    %
+    &=[\hat{\mathcal{H}}_r, \hat{S}^2]
+\end{align}
+となる。したがって、$[\hat{\mathcal{H}}_r, \hat{S}^2]$の値だけ考えればよい。これらの二つの演算子をあらわに書き表そう．
+\begin{equation}
+\begin{split}
+\label{}
+\hat{\mathcal{H}_r}(\tau_1,\dots,\tau_N)&=\sum_{i}^{N} \hat{\boldsymbol{s}}{(\sigma_i)} \cdot \left(\boldsymbol{\Xi} \times \hat{\boldsymbol{P}}_{(\boldsymbol{r_i})}\right)\\
+&= \Xi_z \sum_{i=1}^{N} \left( -{\hat{S_x}}(\sigma_i) {\hat{P}_y}{(\boldsymbol{r_i})} + {\hat{S_y}}(\sigma_i) {\hat{P}_x}{(\boldsymbol{r_i})} \right)\\
+\end{split}
+\end{equation}
+
+
+\begin{equation}
+\begin{split}
+\label{}
+\hat{S^2}(\tau_1,\dots,\tau_N)&=\sum_{\omega}^{x,y,z}\left(\sum_{i}^{N} \hat{S}_{\omega}\right)^2\\
+ &=\sum_{\omega}^{x,y,z}\sum_{j}^{N}\sum_{l}^{N}  \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)}\\
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\label{manko}
+[\hat{\mathcal{H}_r} \hat{S^2} ] =& \Xi_z  \sum_{i}^{N}\left( -{\hat{S_x}}(\sigma_i) {\hat{P}_y}{(\boldsymbol{r_i})} + {\hat{S_y}}(\sigma_i) {\hat{P}_x}{(\boldsymbol{r_i})} \right) \sum_{\omega}^{x,y,z}\sum_{j}^{N}\sum_{l}^{N} \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)}\\
+&- \sum_{\omega}^{x,y,z}\sum_{j}^{N}\sum_{l}^{N} \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} \Xi_z  \sum_{i}^{N}\left( -{\hat{S_x}}(\sigma_i) {\hat{P}_y}{(\boldsymbol{r_i})} + {\hat{S_y}}(\sigma_i) {\hat{P}_x}{(\boldsymbol{r_i})} \right)\\
+=& - \sum_{\omega}^{x,y,z} \sum_{i}^{N}  \sum_{j}^{N} \sum_{l}^{N}  {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_x}}(\sigma_i) \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} -  \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} {\hat{S_x}}(\sigma_i)\right)\\
+&+ \sum_{\omega}^{x,y,z} \sum_{i}^{N} \sum_{j}^{N} \sum_{l}^{N}  {\hat{P}_x}{(\boldsymbol{r_i})}  \left( {\hat{S_y}}(\sigma_i) \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} - \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)  {\hat{S_y}}(\sigma_i)}\right)\\
+\end{split}
+\end{equation}
+
+一電子系，N電子系で交換関係を確かめる．
+\subsection{一電子系の交換関係}
+\begin{equation}
+\begin{split}
+\label{ichidensi}
+[\hat{\mathcal{H}_r} \hat{S^2} ] =&- \sum_{\omega}^{x,y,z} {\hat{P}_y}{(\boldsymbol{r})} \left( {\hat{S_x}}(\sigma) \hat{S_{\omega}}{(\sigma)} \hat{S_{\omega}}{(\sigma)} -  \hat{S_{\omega}}{(\sigma)} \hat{S_{\omega}}{(\sigma)} {\hat{S_x}}(\sigma)\right)\\
+&+ \sum_{\omega}^{x,y,z}  {\hat{P}_x}{(\boldsymbol{r_i})}  \left( {\hat{S_y}}(\sigma) \hat{S_{\omega}}{(\sigma)} \hat{S_{\omega}}{(\sigma)} - \hat{S_{\omega}}{(\sigma)} \hat{S_{\omega}}{(\sigma)  {\hat{S_y}}(\sigma)}\right)\\
+\end{split}
+\end{equation}
+
+式\eqref{ichidensi}の第一項を分解して，それぞれの項を整理する．．
+
+\begin{equation}
+\begin{split}
+\label{}
+&\sum_{\omega}^{x,y,z} {\hat{P}_y}{(\boldsymbol{r})} \left( {\hat{S_x}}(\sigma) \hat{S_{\omega}}{(\sigma)} \hat{S_{\omega}}{(\sigma)} -  \hat{S_{\omega}}{(\sigma)} \hat{S_{\omega}}{(\sigma)} {\hat{S_x}}(\sigma)\right)\\
+=& {\hat{P}_y}{(\boldsymbol{r})} \left( {\hat{S_x}}(\sigma) \hat{S_{x}}{(\sigma)} \hat{S_{x}}{(\sigma)} -  \hat{S_{x}}{(\sigma)} \hat{S_{x}}{(\sigma)} {\hat{S_x}}(\sigma)\right)\\
++&{\hat{P}_y}{(\boldsymbol{r})} \left( {\hat{S_x}}(\sigma) \hat{S_{y}}{(\sigma)} \hat{S_{y}}{(\sigma)} -  \hat{S_{y}}{(\sigma)} \hat{S_{y}}{(\sigma)} {\hat{S_x}}(\sigma)\right)\\
++&{\hat{P}_y}{(\boldsymbol{r})} \left( {\hat{S_x}}(\sigma) \hat{S_{z}}{(\sigma)} \hat{S_{z}}{(\sigma)} -  \hat{S_{z}}{(\sigma)} \hat{S_{z}}{(\sigma)} {\hat{S_x}}(\sigma)\right)\\
+\end{split}
+\end{equation}
+第一項は
+\begin{equation}
+\begin{split}
+\label{}
+&{\hat{S_x}}(\sigma) \hat{S_{x}}{(\sigma)} \hat{S_{x}}{(\sigma)} -  \hat{S_{x}}{(\sigma)} \hat{S_{x}}{(\sigma)} {\hat{S_x}}(\sigma)=0 \\
+\end{split}
+\end{equation}
+第二項は
+\begin{equation}
+\begin{split}
+\label{}
+&{\hat{S_x}}(\sigma) \hat{S_{y}}{(\sigma)} \hat{S_{y}}{(\sigma)} -  \hat{S_{y}}{(\sigma)} \hat{S_{y}}{(\sigma)} {\hat{S_x}}(\sigma) \\
+=&\left({\hat{S_y}}(\sigma) \hat{S_{x}}{(\sigma)} \hat{S_{y}}{(\sigma)}+i\hbar \hat{S_z}{(\sigma)}\hat{S_{y}}{(\sigma)}\right) - \left( \hat{S_{y}}{(\sigma)} \hat{S_{x}}{(\sigma)} {\hat{S_y}}(\sigma) -i\hbar  \hat{S_{y}}{(\sigma)} \hat{S_{z}}{(\sigma)} \right)\\
+=& i\hbar \hat{S_z}{(\sigma)}\hat{S_{y}}{(\sigma)} +i\hbar \hat{S_y}{(\sigma)}\hat{S_{z}}{(\sigma)} \\
+\end{split}
+\end{equation}
+第三項は
+\begin{equation}
+\begin{split}
+\label{}
+&{\hat{S_x}}(\sigma) \hat{S_{z}}{(\sigma)} \hat{S_{z}}{(\sigma)} -  \hat{S_{z}}{(\sigma)} \hat{S_{z}}{(\sigma)} {\hat{S_x}}(\sigma) \\
+=&\left({\hat{S_z}}(\sigma) \hat{S_{x}}{(\sigma)} \hat{S_{z}}{(\sigma)}-i\hbar \hat{S_z}{(\sigma)}\hat{S_{y}}{(\sigma)}\right) - \left( \hat{S_{z}}{(\sigma)} \hat{S_{x}}{(\sigma)} {\hat{S_z}}(\sigma) +i\hbar  \hat{S_{y}}{(\sigma)} \hat{S_{z}}{(\sigma)} \right)\\
+=& -i\hbar \hat{S_z}{(\sigma)}\hat{S_{y}}{(\sigma)} -i\hbar \hat{S_y}{(\sigma)}\hat{S_{z}}{(\sigma)} \\
+\end{split}
+\end{equation}
+これらを足し合わせた式\eqref{ichidensi}の第一項は0になることがわかった.この結果は式\eqref{ichidensi}の第二項でも同様である．
+したがって，一電子系の場合交換関係が0になることが確かめ得られた．
+\begin{equation}
+\begin{split}
+\label{}
+[\hat{\mathcal{H}_r} \hat{S^2} ] =&0
+\end{split}
+\end{equation}
+
+
+% \subsection{二電子系の交換関係}
+
+% \begin{equation}
+% \begin{split}
+% \label{nidensi}
+% [\hat{\mathcal{H}_r} \hat{S^2} ] =& - \sum_{\omega}^{x,y,z} \sum_{i}^{2}  \sum_{j}^{2} \sum_{l}^{2}  {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_x}}(\sigma_i) \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} -  \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} {\hat{S_x}}(\sigma_i)\right)\\
+% &+ \sum_{\omega}^{x,y,z} \sum_{i}^{2} \sum_{j}^{2} \sum_{l}^{2}  {\hat{P}_x}{(\boldsymbol{r_i})}  \left( {\hat{S_y}}(\sigma_i) \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} - \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)  {\hat{S_y}}(\sigma_i)}\right)\\
+% &+\sum_{\omega}^{y,z} \sum_{i}^{N}  \sum_{j \neq i}^{N} \sum_{l \neq i}^{N} {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_x}}(\sigma_i) \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} -  \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} {\hat{S_x}}(\sigma_i)\right)\\
+% \end{split}
+% \end{equation}
+    
+% 式\eqref{nidensi}の第1項を展開して各項について整理する．
+
+% \begin{equation}
+% \begin{split}
+% \label{nidensix}
+% &\sum_{\omega}^{x,y,z} \sum_{i}^{2}  \sum_{j}^{2} \sum_{l}^{2}  {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_x}}(\sigma_i) \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} -  \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} {\hat{S_x}}(\sigma_i)\right)\\
+% =&\sum_{i}^{2}  \sum_{j}^{2} \sum_{l}^{2} {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_x}}(\sigma_i) \hat{S_{x}}{(\sigma_j)} \hat{S_{x}}{(\sigma_l)} -  \hat{S_{x}}{(\sigma_j)} \hat{S_{x}}{(\sigma_l)} {\hat{S_x}}(\sigma_i)\right)\\
+% +&\sum_{\omega}^{y,z} \sum_{i}^{2}  \sum_{j \neq i}^{2} \sum_{l \neq i}^{2} {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_x}}(\sigma_i) \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} -  \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} {\hat{S_x}}(\sigma_i)\right)\\
+% +&2\sum_{\omega}^{y,z} \sum_{i}^{2}  \sum_{j \neq i}^{2}  {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_x}}(\sigma_i) \hat{S_{\omega}}{(\sigma_i)} \hat{S_{\omega}}{(\sigma_j)} -  \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_i)} {\hat{S_x}}(\sigma_i)\right)\\
+% +& \sum_{\omega}^{y,z} \sum_{i}^{2}   {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_{x}}}(\sigma_i) \hat{S_{\omega}}{(\sigma_i)} \hat{S_{\omega}}{(\sigma_i)} -  \hat{S_{\omega}}{(\sigma_i)} \hat{S_{\omega}}{(\sigma_i)} {\hat{S_x}}(\sigma_i)\right)\\
+% \end{split}
+% \end{equation}
+
+% 第一項は
+
+
+
+% 第二項は
+
+% 第三項は
+
+% \begin{equation}
+% \begin{split}
+% \label{}
+% &\sum_{\omega}^{y,z}\sum_{i=1}^{N}  i\hbar\epsilon_{x \omega c}\left(\hat{S_c}(\sigma_i) \hat{S_{\omega}}{(\sigma_i)}+ \hat{S_{\omega}}{(\sigma_i)} \hat{S_c}(\sigma_i) \right)  {\hat{P}_y}{(\boldsymbol{r_i})}\\
+% =&\sum_{i=1}^{N}  i\hbar \left(\epsilon_{x y z}\hat{S_z}(\sigma_i) \hat{S_y}{(\sigma_i)}+\epsilon_{x z y}\hat{S_z}(\sigma_i) \hat{S_y}{(\sigma_i)}\right) {\hat{P}_y}{(\boldsymbol{r_i})}+ i\hbar \left(\epsilon_{x y z}\hat{S_y}(\sigma_i) \hat{S_z}{(\sigma_i)}+\epsilon_{x z y}\hat{S_y}(\sigma_i) \hat{S_z}{(\sigma_i)}\right) {\hat{P}_y}{(\boldsymbol{r_i})}\\
+% =&0
+% \end{split}
+% \end{equation}
+
+% 第四項は
+
+
+
+% 同様にして式\eqref{nidensi}の第二項も0になる．
+
+
+
+
+\subsection{N電子系の交換関係}
+式\eqref{manko}の中で，
+スピン演算子でできた項は式\eqref{BBB}の形で書けるが，これらをab間の関係，$i,j,l$間の関係によって場合分けしたものが，式\eqref{aaa}である．
+\begin{equation}
+\begin{split}
+\label{BBB}
+{\hat{S_a}}(\sigma_i) \hat{S_{b}}{(\sigma_j)} \hat{S_{b}}{(\sigma_l)} -  \hat{S_{b}}{(\sigma_j)} \hat{S_{b}}{(\sigma_l)} {\hat{S_a}}(\sigma_i)\\
+\end{split}
+\end{equation}
+
+
+\begin{equation}
+\begin{split}
+\label{aaa}
+[\hat{\mathcal{H}_r}, \hat{S^2} ] =& \sum_{i}^{N}  \sum_{j}^{N} \sum_{l}^{N} {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_x}}(\sigma_i) \hat{S_{x}}{(\sigma_j)} \hat{S_{x}}{(\sigma_l)} -  \hat{S_{x}}{(\sigma_j)} \hat{S_{x}}{(\sigma_l)} {\hat{S_x}}(\sigma_i)\right)\\
+&+ \sum_{i}^{N}  \sum_{j}^{N} \sum_{l}^{N} {\hat{P}_x}{(\boldsymbol{r_i})} \left( {\hat{S_y}}(\sigma_i) \hat{S_{y}}{(\sigma_j)} \hat{S_{y}}{(\sigma_l)} -  \hat{S_{y}}{(\sigma_j)} \hat{S_{y}}{(\sigma_l)} {\hat{S_y}}(\sigma_i)\right)\\
+&+ \sum_{\omega}^{y,z} \sum_{i}^{N}  \sum_{j \neq i}^{N} \sum_{l \neq i}^{N} {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_x}}(\sigma_i) \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} -  \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} {\hat{S_x}}(\sigma_i)\right)\\
+&+ \sum_{\omega}^{y,z} \sum_{i}^{N}  \sum_{j \neq i}^{N} \sum_{l \neq i}^{N} {\hat{P}_x}{(\boldsymbol{r_i})} \left( {\hat{S_y}}(\sigma_i) \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} -  \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} {\hat{S_y}}(\sigma_i)\right)\\
+&+2 \sum_{\omega}^{y,z} \sum_{i}^{N}  \sum_{j \neq i}^{N}  {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_x}}(\sigma_i) \hat{S_{\omega}}{(\sigma_i)} \hat{S_{\omega}}{(\sigma_j)} -  \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_i)} {\hat{S_x}}(\sigma_i)\right)\\
+&+2 \sum_{\omega}^{y,z} \sum_{i}^{N}  \sum_{j \neq i}^{N}  {\hat{P}_x}{(\boldsymbol{r_i})} \left( {\hat{S_y}}(\sigma_i) \hat{S_{\omega}}{(\sigma_i)} \hat{S_{\omega}}{(\sigma_j)} -  \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_i)} {\hat{S_y}}(\sigma_i)\right)\\
+&+ \sum_{\omega}^{y,z} \sum_{i}^{N}   {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_x}}(\sigma_i) \hat{S_{\omega}}{(\sigma_i)} \hat{S_{\omega}}{(\sigma_i)} -  \hat{S_{\omega}}{(\sigma_i)} \hat{S_{\omega}}{(\sigma_i)} {\hat{S_x}}(\sigma_i)\right)\\
+&+ \sum_{\omega}^{y,z} \sum_{i}^{N}   {\hat{P}_x}{(\boldsymbol{r_i})} \left( {\hat{S_y}}(\sigma_i) \hat{S_{\omega}}{(\sigma_i)} \hat{S_{\omega}}{(\sigma_i)} -  \hat{S_{\omega}}{(\sigma_i)} \hat{S_{\omega}}{(\sigma_i)} {\hat{S_y}}(\sigma_i)\right)\\
+\end{split}
+\end{equation}
+
+それぞれの項を整理していこう．
+\begin{enumerate}
+    \item $a=b$のとき(1~2項)
+    \begin{equation}
+        \begin{split}
+        \label{}
+        &{\hat{S_a}}(\sigma_i) \hat{S_{a}}{(\sigma_j)} \hat{S_{a}}{(\sigma_l)} -  \hat{S_{a}}{(\sigma_j)} \hat{S_{a}}{(\sigma_l)} {\hat{S_a}}(\sigma_i)\\
+        &={\hat{S_a}}(\sigma_i) \hat{S_{a}}{(\sigma_j)} \hat{S_{a}}{(\sigma_l)} -  \hat{S_{a}}{(\sigma_i)} \hat{S_{a}}{(\sigma_j)} {\hat{S_a}}(\sigma_l)\\
+        &=0\\    
+        \end{split}
+    \end{equation}
+    
+    \item $a\neq b$のとき
+    \begin{enumerate}
+        \item  $i$が$j,l$のどちらとも等しくないとき(3~4項)
+        \begin{equation}
+            \begin{split}
+            \label{}
+            &{\hat{S_a}}(\sigma_i) \hat{S_{b}}{(\sigma_j)} \hat{S_{b}}{(\sigma_l)} -  \hat{S_{b}}{(\sigma_j)} \hat{S_{b}}{(\sigma_l)} {\hat{S_a}}(\sigma_i)\\
+            =&{\hat{S_a}}(\sigma_i) \hat{S_{b}}{(\sigma_j)} \hat{S_{b}}{(\sigma_l)} - {\hat{S_a}}(\sigma_i)  \hat{S_{b}}{(\sigma_j)} \hat{S_{b}}{(\sigma_l)}    \\
+            =&0    
+        \end{split}
+        \end{equation}
+
+        項の総和は
+
+\begin{equation}
+\begin{split}
+\label{}
+&\sum_{\omega}^{y,z}\sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{x \omega c}\hat{S_{\omega}}{(\sigma_j)} \hat{S_c}(\sigma_i)\\  
+=&\sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{x yz}\hat{S_{y}}{(\sigma_j)} \hat{S_z}(\sigma_i){\hat{P}_y}{(\boldsymbol{r_i})} - \sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{xyz}\hat{S_{z}}{(\sigma_j)} \hat{S_y}(\sigma_i){\hat{P}_y}{(\boldsymbol{r_i})}\\ 
+=&\sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{x yz}\hat{S_{y}}{(\sigma_j)} \hat{S_z}(\sigma_i){\hat{P}_y}{(\boldsymbol{r_i})} - \sum_{j=1}^{N} \sum_{i\neq j}^{N} i\hbar \epsilon_{xyz}\hat{S_{y}}{(\sigma_i)} \hat{S_z}(\sigma_j){\hat{P}_y}{(\boldsymbol{r_i})}\\ 
+=&0
+\end{split}
+\end{equation}
+
+
+\begin{equation}
+\begin{split}
+\label{}
+&\sum_{\omega}^{x,z}\sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{y \omega c}\hat{S_{\omega}}{(\sigma_j)} \hat{S_c}(\sigma_i)\\  
+=&\sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{y xz}\hat{S_{x}}{(\sigma_j)} \hat{S_z}(\sigma_i) {\hat{P}_x}{(\boldsymbol{r_i})} - \sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{yxz}\hat{S_{z}}{(\sigma_j)} \hat{S_x}(\sigma_i) {\hat{P}_x}{(\boldsymbol{r_i})}\\ 
+=&\sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{yxz}\hat{S_{x}}{(\sigma_j)} \hat{S_z}(\sigma_i) {\hat{P}_x}{(\boldsymbol{r_i})} - \sum_{j=1}^{N} \sum_{i\neq j}^{N} i\hbar \epsilon_{yxz}\hat{S_{x}}{(\sigma_i)} \hat{S_z}(\sigma_j) {\hat{P}_x}{(\boldsymbol{r_i})}\\ 
+=&0
+\end{split}
+\end{equation}
+
+        \item  $i$が$j$,$l$のどちらか一つと等しいとき(5~6項)
+        \begin{equation}
+            \begin{split}
+            \label{}
+            &{\hat{S_a}}(\sigma_i) \hat{S_{b}}{(\sigma_i)} \hat{S_{b}}{(\sigma_k)} -  \hat{S_{b}}{(\sigma_k)} \hat{S_{b}}{(\sigma_i)} {\hat{S_a}}(\sigma_i)\\
+           =& \hat{S_{b}}{(\sigma_k)} [\hat{S_a}(\sigma_i) \hat{S_{b}}{(\sigma_i)} ]\\  
+           =& i\hbar \epsilon_{abc}\hat{S_{b}}{(\sigma_k)} \hat{S_c}(\sigma_i)\\  
+        \end{split}
+        \end{equation}
+        
+        項の総和は
+        
+        \begin{equation}
+        \begin{split}
+        \label{}
+        &\sum_{\omega}^{y,z}\sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{x \omega c}\hat{S_{\omega}}{(\sigma_j)} \hat{S_c}(\sigma_i)\\  
+        =&\sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{x yz}\hat{S_{y}}{(\sigma_j)} \hat{S_z}(\sigma_i){\hat{P}_y}{(\boldsymbol{r_i})} - \sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{xyz}\hat{S_{z}}{(\sigma_j)} \hat{S_y}(\sigma_i){\hat{P}_y}{(\boldsymbol{r_i})}\\ 
+        =&\sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{x yz}\hat{S_{y}}{(\sigma_j)} \hat{S_z}(\sigma_i){\hat{P}_y}{(\boldsymbol{r_i})} - \sum_{j=1}^{N} \sum_{i\neq j}^{N} i\hbar \epsilon_{xyz}\hat{S_{y}}{(\sigma_i)} \hat{S_z}(\sigma_j){\hat{P}_y}{(\boldsymbol{r_i})}\\ 
+        =&0
+        \end{split}
+        \end{equation}
+        
+        
+        \begin{equation}
+        \begin{split}
+        \label{}
+        &\sum_{\omega}^{x,z}\sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{y \omega c}\hat{S_{\omega}}{(\sigma_j)} \hat{S_c}(\sigma_i)\\  
+        =&\sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{y xz}\hat{S_{x}}{(\sigma_j)} \hat{S_z}(\sigma_i) {\hat{P}_x}{(\boldsymbol{r_i})} - \sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{yxz}\hat{S_{z}}{(\sigma_j)} \hat{S_x}(\sigma_i) {\hat{P}_x}{(\boldsymbol{r_i})}\\ 
+        =&\sum_{i=1}^{N} \sum_{j\neq i}^{N} i\hbar \epsilon_{yxz}\hat{S_{x}}{(\sigma_j)} \hat{S_z}(\sigma_i) {\hat{P}_x}{(\boldsymbol{r_i})} - \sum_{j=1}^{N} \sum_{i\neq j}^{N} i\hbar \epsilon_{yxz}\hat{S_{x}}{(\sigma_i)} \hat{S_z}(\sigma_j) {\hat{P}_x}{(\boldsymbol{r_i})}\\ 
+        =&0
+        \end{split}
+        \end{equation}
+        \item  $i$が$j$,$l$のどちらか一つと等しいとき (7~8項)
+        \begin{equation}
+            \begin{split}
+            \label{}
+            &{\hat{S_a}}(\sigma_i) \hat{S_{b}}{(\sigma_i)} \hat{S_{b}}{(\sigma_i)} -  \hat{S_{b}}{(\sigma_i)} \hat{S_{b}}{(\sigma_i)} {\hat{S_a}}(\sigma_i)\\
+        =& i\hbar\left(\epsilon_{abc}\hat{S_c}(\sigma_i) \hat{S_{b}}{(\sigma_i)} + {\hat{S_b}}(\sigma_i) \hat{S_{a}}{(\sigma_i)} \hat{S_{b}}{(\sigma_i)} \right)- 
+         i\hbar\left( \hat{S_{b}}{(\sigma_i)} \epsilon_{bac}\hat{S_c}(\sigma_i)  + {\hat{S_b}}(\sigma_i) \hat{S_{a}}{(\sigma_i)} \hat{S_{b}}{(\sigma_i)} \right)\\
+        =&i\hbar\epsilon_{abc} \left(\hat{S_c}(\sigma_i) \hat{S_{b}}{(\sigma_i)}+ \hat{S_{b}}{(\sigma_i)} \hat{S_c}(\sigma_i) \right)
+        \end{split}
+        \end{equation}
+        
+        
+        項の総和は
+        
+        \begin{equation}
+        \begin{split}
+        \label{}
+        &\sum_{\omega}^{y,z}\sum_{i=1}^{N}  i\hbar\epsilon_{x \omega c}\left(\hat{S_c}(\sigma_i) \hat{S_{\omega}}{(\sigma_i)}+ \hat{S_{\omega}}{(\sigma_i)} \hat{S_c}(\sigma_i) \right)  {\hat{P}_y}{(\boldsymbol{r_i})}\\
+        =&\sum_{i=1}^{N}  i\hbar \left(\epsilon_{x y z}\hat{S_z}(\sigma_i) \hat{S_y}{(\sigma_i)}+\epsilon_{x z y}\hat{S_z}(\sigma_i) \hat{S_y}{(\sigma_i)}\right) {\hat{P}_y}{(\boldsymbol{r_i})}+ i\hbar \left(\epsilon_{x y z}\hat{S_y}(\sigma_i) \hat{S_z}{(\sigma_i)}+\epsilon_{x z y}\hat{S_y}(\sigma_i) \hat{S_z}{(\sigma_i)}\right) {\hat{P}_y}{(\boldsymbol{r_i})}\\
+        =&0
+        \end{split}
+        \end{equation}
+        
+        \begin{equation}
+        \begin{split}
+        \label{}
+        &\sum_{\omega}^{x,z}\sum_{i=1}^{N} i\hbar\epsilon_{y \omega c}\left(\hat{S_c}(\sigma_i) \hat{S_{\omega}}{(\sigma_i)}+ \hat{S_{\omega}}{(\sigma_i)} \hat{S_c}(\sigma_i) \right){\hat{P}_x}{(\boldsymbol{r_i})}\\
+        =&\sum_{i=1}^{N}  i\hbar \left(\epsilon_{y x z}\hat{S_z}(\sigma_i) \hat{S_x}{(\sigma_i)}+\epsilon_{y z x}\hat{S_x}(\sigma_i) \hat{S_z}{(\sigma_i)}\right){\hat{P}_x}{(\boldsymbol{r_i})}+ i\hbar \left(\epsilon_{ y x z}\hat{S_x}(\sigma_i) \hat{S_z}{(\sigma_i)}+\epsilon_{x z y}\hat{S_z}(\sigma_i) \hat{S_x}{(\sigma_i)}\right){\hat{P}_x}{(\boldsymbol{r_i})}\\
+        =&0
+        \end{split}
+        \end{equation}
+
+    \end{enumerate}
+\end{enumerate}
+
+
+
+
+
+
+% \begin{equation}
+% \begin{split}
+% \label{}
+% [\hat{\mathcal{H}_r} ,\hat{S^2} ]&= - \sum_{\omega}^{x,y,z} \sum_{i}^{N}  \sum_{j}^{N} \sum_{l}^{N}  {\hat{P}_y}{(\boldsymbol{r_i})} \left( {\hat{S_x}}(\sigma_i) \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} -  \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} {\hat{S_x}}(\sigma_i)\right)\\
+% &+ \sum_{\omega}^{x,y,z} \sum_{i}^{N} \sum_{j  }^{N} \sum_{l }^{N}  {\hat{P}_x}{(\boldsymbol{r_i})}  \left( {\hat{S_y}}(\sigma_i) \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)} - \hat{S_{\omega}}{(\sigma_j)} \hat{S_{\omega}}{(\sigma_l)  {\hat{S_y}}(\sigma_i)}\right)\\
+% &= -\sum_{\omega}^{y,z}  {\hat{P}_y}{(\boldsymbol{r_i})} \left(2\sum_{i}^{N} \sum_{j \neq i}^{N}i\hbar \epsilon_{x \omega c}(\hat{S_{\omega}}{(\sigma_j)} \hat{S_c}(\sigma_i)) +\sum_{i}^{N} i\hbar\epsilon_{x \omega c} ( \hat{S_c}(\sigma_i) \hat{S_{\omega}}{(\sigma_i)}+ \hat{S_{\omega}}{(\sigma_i)} \hat{S_c}(\sigma_i)) \right) \\
+% &+\sum_{\omega}^{x,z}  {\hat{P}_x}{(\boldsymbol{r_i})}   \left(2\sum_{i}^{N} \sum_{j \neq i}^{N}i\hbar \epsilon_{y \omega c}\left(\hat{S_{\omega}}{(\sigma_j)} \hat{S_c}(\sigma_i)\right) +\sum_{i}^{N} i\hbar\epsilon_{y \omega c} \left( \hat{S_c}(\sigma_i) \hat{S_{\omega}}{(\sigma_i)}+ \hat{S_{\omega}}{(\sigma_i)} \hat{S_c}(\sigma_i)\right) \right) \\
+% &= - 2 {\hat{P}_y}{(\boldsymbol{r_i})} \sum_{\omega}^{y,z}\sum_{i}^{N} \sum_{j \neq i}^{N}i\hbar \epsilon_{x \omega c}\left(\hat{S_{\omega}}{(\sigma_j)} \hat{S_c}(\sigma_i)\right)+2 {\hat{P}_x}{(\boldsymbol{r_i})} \sum_{\omega}^{x,z}\sum_{i}^{N} \sum_{j \neq i}^{N}i\hbar \epsilon_{y \omega c}\left(\hat{S_{\omega}}{(\sigma_j)} \hat{S_c}(\sigma_i)\right)\\
+% &= - 2 {\hat{P}_y}{(\boldsymbol{r_i})} \sum_{i}^{N} \sum_{j \neq i}^{N}i\hbar\epsilon_{x y z}\left( \hat{S_y}{(\sigma_j)} \hat{S_z}(\sigma_i)-\hat{S_z}{(\sigma_j)} \hat{S_y}(\sigma_i)\right)+2 {\hat{P}_x}{(\boldsymbol{r_i})} \sum_{\omega}^{x,z}\sum_{i}^{N} \sum_{j \neq i}^{N}i\hbar \epsilon_{y \omega c}\left(\hat{S_{\omega}}{(\sigma_j)} \hat{S_c}(\sigma_i)\right)\\
+% \end{split}
+% \end{equation}
+
+
+\begin{equation}
+\begin{split}
+\label{}
+[\hat{\mathcal{H}_r} ,\hat{S^2} ]&= 0
+\end{split}
+\end{equation}
+
+ \end{document}
