@@ -1,0 +1,246 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{luatexja}
+\begin{document}
+
+\section*{MCSCF のエネルギー表式と密度行列}
+
+\subsection*{波動関数とエネルギー}
+
+分子軌道をLCAO表示で書くと、
+\begin{equation}
+\begin{split}
+\phi_i = \sum_\mu C_{\mu}^{i} \chi_\mu
+\label{}
+\end{split}
+\end{equation}
+
+このとき、Slater行列式あるいはspin-adapted configurationは
+\begin{equation}
+\begin{split}
+\Phi_I = | \phi_{i_1} \phi_{i_2} \cdots \phi_{i_n} |
+\label{}
+\end{split}
+\end{equation}
+
+全波動関数を配置の線形結合で表すと、
+\begin{equation}
+\begin{split}
+\Psi = \sum_I C_I \Phi_I
+\label{}
+\end{split}
+\end{equation}
+
+このときのエネルギー期待値は、
+\begin{equation}
+\begin{split}
+E = \langle \Psi | \hat{H} | \Psi \rangle = \sum_{IJ} C_I C_J \langle \Phi_I | \hat{H} | \Phi_J \rangle
+\label{}
+\end{split}
+\end{equation}
+
+ハミルトニアン行列要素は、
+\begin{equation}
+\begin{split}
+H_{IJ} = \langle \Phi_I | \hat{H} | \Phi_J \rangle
+\label{}
+\end{split}
+\end{equation}
+
+さらに、MO表示でone-electron積分を
+\begin{equation}
+\begin{split}
+h_{ij} = \langle \phi_i | h | \phi_j \rangle = \sum_{\mu\nu} C_{\mu}^{i *} C_{\nu}^{j} \langle \chi_\mu | h | \chi_\nu \rangle
+\label{}
+\end{split}
+\end{equation}
+
+two-electron積分を
+\begin{equation}
+\begin{split}
+(ij|kl) = \iint \phi_i(\mathbf{r}_1) \phi_j(\mathbf{r}_1) \frac{1}{|\mathbf{r}_1 - \mathbf{r}_2|} \phi_k(\mathbf{r}_2) \phi_l(\mathbf{r}_2) \, d\mathbf{r}_1 d\mathbf{r}_2
+\label{}
+\end{split}
+\end{equation}
+
+そのMO展開は、
+\begin{equation}
+\begin{split}
+(ij|kl) = \sum_{\mu\nu\lambda\sigma} C_{\mu}^{i *} C_{\nu}^{j *} C_{\lambda}^{k} C_{\sigma}^{l} (\mu\nu|\lambda\sigma)
+\label{}
+\end{split}
+\end{equation}
+
+one-particleおよびtwo-particle密度行列は次のように定義される：
+\begin{equation}
+\begin{split}
+\gamma_{ij} = \sum_{IJ} C_I^* C_J \gamma_{ij}^{IJ}
+\label{}
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\Gamma_{ijkl} = \sum_{IJ} C_I^* C_J \Gamma_{ijkl}^{IJ}
+\label{}
+\end{split}
+\end{equation}
+
+これにより、エネルギーは以下のように書かれる：
+\begin{equation}
+\begin{split}
+E = \sum_{ij} \gamma_{ij} h_{ij} +  \sum_{ijkl} \Gamma_{ijkl} (ij|kl)
+\label{}
+\end{split}
+\end{equation}
+
+
+
+\section*{エネルギーの回転行列による展開}
+\subsection*{エネルギーの2次展開と補助量の定義}
+分子軌道とCI係数にユニタリ変換を施し、新しいMOおよびCI係数を得たとする。
+
+\begin{equation}
+\begin{split}
+\phi_i^{New} &= \phi_i e^R \simeq \phi_i \left(1 + r + \frac{1}{2} r^2\right)
+\label{}
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+C^{New} &= e^r C \simeq \left(1 + r + \frac{1}{2} r^2\right) C
+\label{}
+\end{split}
+\end{equation}
+
+ユニタリ性より回転生成子 \( R \) および \( r \) は反エルミート：
+
+\begin{equation}
+\begin{split}
+R^\dagger = -R, \quad r^\dagger = -r
+\label{}
+\end{split}
+\end{equation}
+
+これらを用いて、MOとCI係数の二次までの展開を行うと：
+
+\begin{equation}
+\begin{split}
+\phi_i^{\text{New}} &\simeq \phi_i + \sum_m \phi_m  \left(R_{mi} + \frac{1}{2} \sum_{n} R_{mn} R_{ni} \right)
+\quad \text{with } R_{ij} = -R_{ji}
+\label{}
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+C_I^{\text{New}} &= C_I^0 + \sum_{K \ne 0} C_K^0 r_{KI} - \frac{1}{2} \sum_{K,L \ne 0} C_K^0 r_{KL} r_{LI}
+\label{}
+\end{split}
+\end{equation}
+
+ここで \( C_I^0 \) はCI係数の基準状態（reference state）、\( C_N^0 \) はN番目の励起状態のCI係数を表す
+
+\begin{equation}
+\begin{split}
+E^{\text{New}} &= E_0 + 2 \sum_{ij} \varepsilon_{ij} R_{ij} 
++ \sum_{ij} \varepsilon_{ij} \sum_k R_{ik} R_{kj} 
++ \sum_{ijkl} Y_{ijkl} R_{ij} R_{kl} \\
+&\quad + 2 \sum_{ij} r_{k} \sum_{IJ} C_I^0 C_J^k H_{ij}
++ 4 \sum_{k \ne 0} r_k \sum_{ij} R_{ij} \sum_{IJ} C_I^0 C_J^k \varepsilon_{ij}^{kl} \\
+&\quad - \sum_{ij} C_I^0 C_J^0 H_{ij} \sum_{k \ne 0} r_k^2 
++ \sum_{IJ}\sum_{kl \ne 0} C_I^k C_J^l H_{IJ} r_k r_l + \cdots
+\label{}
+\end{split}
+\end{equation}
+
+ここで補助量は以下で定義される：
+
+
+\begin{align}
+E_0 &= \sum_{IJ} C_I^0 C_J^0 H_{IJ}\\
+\varepsilon_{ij} &= \sum_{IJ} C_I^0 C_J^0 \varepsilon_{ij}^{kl}\\
+Y_{ijkl} &= \sum_{IJ} C_I^0 C_J^0 Y_{ij,kl}^{IJ}\\
+\varepsilon_{IJ}^{ij} &= \sum_{IJ} \Gamma_{ij}^{kl} h_{ik} + 2 \sum_{klm} \Gamma_{jklm}^{IJ} \langle ik | mn \rangle\\
+Y_{ijkl}^{IJ} &= \gamma_{jl}^{IJ} h_{ik} + 2 \sum_{mn} \Gamma_{jkmn}^{IJ} \langle im | kn \rangle + 4 \sum_{mn} \Gamma^{IJ}_{jmln} \langle im | kn \rangle
+\label{}
+\end{align}
+
+\section*{エネルギー変分とNewton-Raphson方程式}
+エネルギーを\(R\)と\(r\)に関してそれぞれ一次変分を取ると
+\begin{equation}
+\begin{split}
+\frac{d E^{\text{New}}}{d R_{rs}} &= \frac{d E^{\text{New}}}{d R_{rs}} + \frac{\partial E^{\text{New}}}{\partial R_{pq}} \cdot \frac{\partial R_{pq}}{\partial R_{rs}} \\
+&= 2(\varepsilon_{rs} - \varepsilon_{sr}) + \sum_t \left( \varepsilon_{rt} R_{ts} + \varepsilon_{ts} R_{rt} \right) + \sum_{pq} (\gamma_{pqrs} + \gamma_{pqsr}) R_{pq}
+\label{eq:64}
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\frac{d E^{\text{New}}}{d r_k} 
+= \sum_{IJ} C_I^0 C_J^k H_{IJ} + \sum_{ij} R_{ij} \sum_{IJ} C_I^0 C_J^k \varepsilon_{ij}^{IJ} 
+- \sum_k C_I^0 C_J^k H_{IJ} r_k + \sum_{IJ,kl} C_I^k C_J^l H_{IJ} r_l
+\label{eq:65}
+\end{split}
+\end{equation}
+
+\noindent
+これらの勾配をまとめてNewton-Raphson法により解く。
+
+\begin{equation}
+\frac{d E^{\text{New}}}{d R_{rs}} = g_{pq} + \sum_{tu} \frac{d^2 E}{d R_{pq} d R_{tu}} R_{tu} + \sum_k \frac{d^2 E}{d R_{pq} d r_k} r_k = 0
+\label{eq:66}
+\end{equation}
+
+\begin{equation}
+\frac{d E^{\text{New}}}{d r_k} = G_k + \sum_{pq} \frac{d^2 E}{d r_k d R_{pq}} R_{pq} + \sum_l \frac{d^2 E}{d r_k d r_l} r_l = 0
+\label{eq:67}
+\end{equation}
+
+これらを連立方程式として行列の形で書くと：
+
+\begin{equation}
+\begin{pmatrix}
+\mathbf{g} \\
+\mathbf{G}
+\end{pmatrix}
++
+\begin{pmatrix}
+A^{11} & A^{12} \\
+A^{21} & A^{22}
+\end{pmatrix}
+\begin{pmatrix}
+R \\
+r
+\end{pmatrix}
+= 0
+\label{eq:68}
+\end{equation}
+
+補助量の定義：
+
+\begin{align}
+g_{ij} &= \varepsilon_{ij} - \varepsilon_{ji} \label{eq:69} \\
+G_k &= \sum_{IJ} C_I^0 C_J^k H_{IJ} \label{eq:70}
+\end{align}
+
+\begin{align}
+A^{11}_{ijkl} &= Y_{ijkl} - Y_{jikl} - Y_{ijlk} + Y_{jilk}- \frac{1}{2} (\delta_{ik} (\varepsilon_{jk} + \varepsilon_{kj}) \\
+&
+-  \delta_{ik} (\varepsilon_{jl} - \varepsilon_{lj})- \delta_{jk} (\varepsilon_{jk} + \varepsilon_{ki}) - \delta_{jk} (\varepsilon_{il} - \varepsilon_{li}))\\
+A^{12}_{ij,k} &= A^{21}_{k,ij} = \sum_{IJ} C_I^0 C_J^k (\varepsilon_{ij}^{IJ} - \varepsilon_{ji}^{IJ})\\
+A^{22}_{kl} &= \sum_{IJ} C_I^k C_J^l H_{IJ} - \delta_{kl} E_0
+\end{align}
+
+よって、$A^{11}$ は MO-MO 部、$A^{12}$ は MOとCIの混合項、$A^{22}$ はCI部分に対応する。
+
+\subsection*{Brillouin条件の一般化}
+
+stationarity 条件より、以下のような一般化された Brillouin 条件が得られる：
+
+
+
+\end{document}
+
