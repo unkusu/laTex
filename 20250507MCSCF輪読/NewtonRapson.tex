@@ -1,0 +1,100 @@
+\documentclass{article}
+%\setlength{\textwidth}{46zw}
+%\setlength{\textheight}{78zh}
+%\setlength{\textwidth}{20zw}
+%\setlength{\textheight}{30zh}
+\addtolength{\hoffset}{-12.77pt}
+\addtolength{\headsep}{-13pt}
+\addtolength{\headheight}{-20pt}
+\addtolength{\voffset}{-29.77pt}
+
+\usepackage{luatexja}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{type1cm}
+\usepackage[dvipdfmx]{color}
+\usepackage{here}
+\usepackage{physics}
+\usepackage{color}
+\usepackage{simpler-wick}
+
+\title{Newton-Raphson\,\textendash\,\textbf{極値を求める方法}}
+\date{}
+\begin{document}
+
+\maketitle
+
+\section*{はじめに：Newton-Raphson法とは何か}
+
+Newton-Raphson法は、関数の根や極値を反復的に求めるための数値的手法である。
+特に最適化の文脈では、エネルギーや目的関数の局所極小（または極大）を求める際に用いられる。
+本手法は関数のテイラー展開（二次展開）に基づき、\textbf{勾配（1階微分）とヘッシアン（2階微分）}を使って、
+次の反復点（ステップ）を計算するのが特徴である。
+
+\section*{1. 1変数関数に対する極値の求め方}
+
+1変数の関数 $f(x)$ の極値（$\dv{f}{x} = 0$ となる点）を求めるために、$x$ の近傍で2次のテイラー展開を行う：
+
+\begin{align*}
+  f(x + \delta x) &\approx f(x) + \dv{f}{x} \cdot \delta x + \frac{1}{2} \dv[2]{f}{x} \cdot (\delta x)^2
+\end{align*}
+
+この近似式において、極値条件は $\dv{f}{x + \delta x} = 0$ とすることで導かれ、
+勾配ゼロの条件から次のように変化量 $\delta x$ を求める：
+
+\begin{align*}
+  \dv{f}{x} + \dv[2]{f}{x} \cdot \delta x &= 0 \\
+  \delta x &= - \frac{\dv{f}{x}}{\dv[2]{f}{x}}
+\end{align*}
+
+これにより次の反復点は次式で与えられる：
+
+\begin{align*}
+  x_{n+1} = x_n + \delta x = x_n - \frac{\dv{f}{x}}{\dv[2]{f}{x}}
+\end{align*}
+
+この式が、Newton-Raphson法の1変数関数への適用例である。
+
+\section*{2. 多変数関数に対する極値の求め方（行列形式）}
+
+$\bm{x} \in \mathbb{R}^n$ に対して定義されたスカラー関数 $E(\bm{x})$ を最小化（または極値を探索）したいとき、$\bm{x}$ の近傍での2次テイラー展開は次のようになる：
+
+\begin{align*}
+  E(\bm{x} + \delta \bm{x}) &\approx E(\bm{x}) + \bm{G}^T \delta \bm{x} + \frac{1}{2} \delta \bm{x}^T \bm{A} \delta \bm{x}
+\end{align*}
+
+ここで、$\bm{G}$ は1階微分（勾配ベクトル）、$\bm{A}$ はヘッシアン行列であり、成分は以下で与えられる：
+
+\begin{align*}
+  G_i &= \pdv{E}{x_i}, \\
+  A_{ij} &= \pdv[2]{E}{x_i}{x_j}
+\end{align*}
+
+このとき、勾配ゼロになるような $\delta \bm{x}$ を求める条件は：
+
+\begin{align*}
+  \bm{G} + \bm{A} \delta \bm{x} &= 0
+\end{align*}
+
+これを解くことで、更新方向が得られる：
+
+\begin{align*}
+  \delta \bm{x} &= -\bm{A}^{-1} \bm{G}
+\end{align*}
+
+これにより、次の反復点は：
+
+\begin{align*}
+  \bm{x}_{n+1} = \bm{x}_n + \delta \bm{x} = \bm{x}_n - \bm{A}^{-1} \bm{G}
+\end{align*}
+
+この形式は、MCSCF法など量子化学計算における多変数最適化と本質的に同じ構造をもつ。
+
+\end{document}
+
