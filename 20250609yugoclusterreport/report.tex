@@ -1,0 +1,84 @@
+\documentclass{article}
+%\setlength{\textwidth}{46zw}
+%\setlength{\textheight}{78zh}
+%\setlength{\textwidth}{20zw}
+%\setlength{\textheight}{30zh}
+\addtolength{\hoffset}{-12.77pt}
+\addtolength{\headsep}{-13pt}
+\addtolength{\headheight}{-20pt}
+\addtolength{\voffset}{-29.77pt}
+
+\usepackage{luatexja}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{type1cm}
+\usepackage[dvipdfmx]{color}
+\usepackage{here}
+\usepackage{physics}
+\usepackage{color}
+\usepackage{simpler-wick}
+\title{逆分子設計における探索パラメータの影響と結果分析}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{はじめに}
+本実験では、強化学習を用いた逆分子設計手法（REINVENT）において、探索パラメータである反復回数（\texttt{Num\_iterations}）および1反復あたりの生成分子数（\texttt{Num\_molecules\_per\_iteration}）が探索結果および分子の溶解度に与える影響を調査した。
+
+\section{実験設定}
+以下の設定で実験を行った：
+\begin{itemize}
+  \item \textbf{反復回数（\texttt{Num\_iterations}）}: 50
+  \item \textbf{生成分子数/反復（\texttt{Num\_molecules\_per\_iteration}）}: 非公開（想定として100前後）
+  \item \textbf{目的関数}: 溶解度（logS）
+\end{itemize}
+探索では、各反復ごとに新たな分子を生成し、その予測溶解度を評価、最良のスコアを持つ分子を保持して進化を行った。
+
+\section{結果}
+反復初期はlogS \approx -3.1程度の分子から始まり、探索を重ねるごとに改良された分子が出現し、最終的にlogS \approx -1.91の分子が得られた。表\ref{tab:result}に上位5分子のSMILESと予測logSを示す。
+
+\begin{table}[h]
+  \centering
+  \caption{予測logS上位5分子}
+  \label{tab:result}
+  \begin{tabular}{|c|l|c|}
+    \hline
+    順位 & SMILES & logS \\
+    \hline
+    1 & O=S(NC(O)(F)c1ccncc1)C(O)S1=CC=CN=C1 & -1.9081 \\
+    2 & CN(C(=O)NC(N)(O)c1ccncc1)c1ccnnn1 & -1.9397 \\
+    3 & NC(O)(NS(=O)C(O)S1=CC=CN=C1)c1ccncc1 & -1.9421 \\
+    4 & CN(C(=N)NC(O)(O)c1cpncn1)S1=CN=CN=C1 & -1.9443 \\
+    5 & CN(C(=O)NC(C)(N)c1ccncc1)c1cncnc1 & -1.9448 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{構造の傾向}
+上位分子には以下のような構造的傾向が見られた：
+\begin{itemize}
+  \item 窒素を含む芳香族（ピリジン環など）
+  \item -OH, -NH$_2$など極性基
+  \item S=OやS-S結合など電子的に影響の大きい官能基
+\end{itemize}
+これらの構造は水溶性の向上に寄与すると考えられる。
+
+\section{考察}
+\subsection*{反復回数の影響}
+logSの推移を見ると、初期段階では大きく改善し、30反復目以降はほぼ収束した。このことから、\textbf{50反復は十分な探索回数}である一方、\textbf{より高い性能を目指すには80回以上への拡張も有効}であると予想される。
+
+\subsection*{生成分子数の影響（仮定）}
+本実験では1反復あたりの生成分子数は不明であるが、もしこの数が少なければ多様性の確保が難しく、局所最適に陥る可能性が高まる。\textbf{今後は分子数を増やすことで初期多様性を向上させ、より有望な化合物探索が可能になる}と考えられる。
+
+\section{結論}
+反復回数50回の設定で、初期よりも大幅に改良された高溶解度分子が得られた。探索の深化と多様性の両立が今後の課題であり、反復数・生成数の調整が最適化性能に与える影響は大きい。
+
+\end{document}
